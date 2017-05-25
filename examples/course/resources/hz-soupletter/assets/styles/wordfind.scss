@@ -1,0 +1,140 @@
+@import "./function";
+//********************************************
+//* Project: hz-soupletter
+//* File: wordfind
+//* Description:
+//*********************************************
+/* wordfind */
+/**
+* Wordfind.js 0.0.1
+* (c) 2012 Bill, BunKat LLC.
+* Wordfind is freely distributable under the MIT license.
+* For all details and documentation:
+*     http://github.com/bunkat/wordfind
+*/
+
+[data-hz-resource="HzSoupLetter"]{
+    &:after{
+        content:"";
+        display: block;
+        clear:both;
+    }
+}
+
+/**
+* Styles for the puzzle
+*/
+[data-hz-soup-letter-board] {
+    border: 1px solid black;
+    padding: 20px;
+    float: left;
+    p {
+        font: 22pt sans-serif;
+        margin: 20px 20px 0px 20px;
+    }
+}
+
+[data-hz-soup-letter-board] .wordsRow {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+}
+[data-hz-soup-letter-list]{
+    float:left;
+    padding-left:20px;
+    i{
+        display: inline-block;
+        height: 11px;
+        width: 11px;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+}
+/* style for each square in the puzzle */
+[data-hz-soup-letter-board] .puzzleSquare {
+    display: flex;
+    align-content: center;
+    justify-content:center;
+    position:relative;
+    height: 30px;
+    width: 30px;
+    text-transform: uppercase;
+    background-color: white;
+    border: 0;
+    font: 1em sans-serif;
+    .puzzleSquare {
+        display: flex;
+        align-items: center;
+        height: auto;
+        width: auto;
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        right: 4px;
+        bottom: 4px;
+        z-index: 1;
+        background:none
+    }
+}
+
+button::-moz-focus-inner {
+    border: 0;
+}
+
+/* indicates when a square has been selected */
+[data-hz-soup-letter-board] .selected {
+    background-color: #ffa130;
+}
+
+/* indicates that the square is part of a word that has been found */
+[data-hz-soup-letter-board] .found {
+    background-color: #6a88ff;
+    color: white;
+}
+
+[data-hz-soup-letter-board] .solved {
+    background-color: purple;
+    color: white;
+}
+
+/* indicates that all words have been found */
+[data-hz-soup-letter-board] .complete:not(.found) {
+    visibility: hidden;
+}
+
+/**
+* Styles for the word list
+*/
+#words {
+    padding-top: 20px;
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 20px;
+    column-count: 2;
+    column-gap: 20px;
+    width: 300px;
+}
+
+#words ul {
+    list-style-type: none;
+}
+
+#words li {
+    padding: 3px 0;
+    font: 1em sans-serif;
+}
+
+/* indicates that the word has been found */
+#words .wordFound {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/**
+* Styles for the button
+*/
+#solve {
+    margin: 0 30px;
+}
+/* End wordfind */

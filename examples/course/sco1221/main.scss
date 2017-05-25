@@ -1,0 +1,19 @@
+/* Estilos de prueba. NO UTILIZAR en proyecto*/
+/* Common */
+@import "../assets/styles/common/config";
+@import "../assets/styles/common/function";
+@import "../assets/styles/common/reset";
+@import "../assets/styles/common/colors";
+@import "../../../node_modules/@haztivity/hz-navbar/src/scss/_hz-navbar.theme-default.scss";
+@import "../resources/hz-soupletter/assets/styles/wordfind";
+/* End common */
+/* Components */
+body {
+    width: 80%;
+    margin: 0 auto;
+    padding: 1em;
+}
+.tooltip-template{
+    display: none;
+}
+/* End components */
