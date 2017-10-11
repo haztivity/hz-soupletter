@@ -24,7 +24,7 @@ var core_1 = require("@haztivity/core");
 var wordfind_1 = require("./lib/wordfind");
 require("./lib/wordfindgame");
 var ColorHash = require("color-hash");
-var HzSoupLetterResource = HzSoupLetterResource_1 = (function (_super) {
+var HzSoupLetterResource = /** @class */ (function (_super) {
     __extends(HzSoupLetterResource, _super);
     /**
      * Componente de cabecera para haztivity.
@@ -41,6 +41,7 @@ var HzSoupLetterResource = HzSoupLetterResource_1 = (function (_super) {
         _this._NavigatorService = _NavigatorService;
         return _this;
     }
+    HzSoupLetterResource_1 = HzSoupLetterResource;
     HzSoupLetterResource.prototype.init = function (options, config) {
         this._options = options;
         this._config = config;
@@ -54,7 +55,7 @@ var HzSoupLetterResource = HzSoupLetterResource_1 = (function (_super) {
                 instance: this
             }
         });
-        this._gamePuzzle = wordfindgame.create(this._options.words, this._$element.find("[data-hz-soup-letter-board]"), this._$element.find("[data-hz-soup-letter-list]"), null, this._colorHash);
+        this._gamePuzzle = wordfindgame.create(this._options.words, this._$element.find("[data-hz-soup-letter-board]"), this._$element.find("[data-hz-soup-letter-list]"), this._options, this._colorHash);
         // create just a puzzle, without filling in the blanks and print to console
         var puzzle = wordfind_1.wordfind.newPuzzle(this._options.words, { height: 18, width: 18, fillBlanks: false });
         wordfind_1.wordfind.print(this._gamePuzzle);
@@ -116,20 +117,20 @@ var HzSoupLetterResource = HzSoupLetterResource_1 = (function (_super) {
         instance._founded++;
         instance._$text.text("Quedan " + (instance._options.words.length - instance._founded) + " palabra/s");
     };
+    HzSoupLetterResource.NAMESPACE = "hzSoupLetter";
+    HzSoupLetterResource = HzSoupLetterResource_1 = __decorate([
+        core_1.Resource({
+            name: "HzSoupLetter",
+            dependencies: [
+                core_1.$,
+                core_1.EventEmitterFactory,
+                core_1.ScormService,
+                core_1.NavigatorService
+            ]
+        })
+    ], HzSoupLetterResource);
     return HzSoupLetterResource;
+    var HzSoupLetterResource_1;
 }(core_1.ResourceController));
-HzSoupLetterResource.NAMESPACE = "hzSoupLetter";
-HzSoupLetterResource = HzSoupLetterResource_1 = __decorate([
-    core_1.Resource({
-        name: "HzSoupLetter",
-        dependencies: [
-            core_1.$,
-            core_1.EventEmitterFactory,
-            core_1.ScormService,
-            core_1.NavigatorService
-        ]
-    })
-], HzSoupLetterResource);
 exports.HzSoupLetterResource = HzSoupLetterResource;
-var HzSoupLetterResource_1;
 //# sourceMappingURL=HzSoupLetterResource.js.map

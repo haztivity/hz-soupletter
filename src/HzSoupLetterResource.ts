@@ -44,7 +44,7 @@ export class HzSoupLetterResource extends ResourceController{
                 instance:this
             }
         });
-        this._gamePuzzle = wordfindgame.create(this._options.words, this._$element.find("[data-hz-soup-letter-board]"), this._$element.find("[data-hz-soup-letter-list]"),null,this._colorHash);
+        this._gamePuzzle = wordfindgame.create(this._options.words, this._$element.find("[data-hz-soup-letter-board]"), this._$element.find("[data-hz-soup-letter-list]"),this._options,this._colorHash);
         // create just a puzzle, without filling in the blanks and print to console
         var puzzle = wordfind.newPuzzle(
             this._options.words,

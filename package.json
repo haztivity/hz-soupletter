@@ -1,7 +1,7 @@
 {
-  "name": "@haztivity/hz-cardflip",
+  "name": "@haztivity/hz-soupletter",
   "version": "0.6.0",
-  "description": "Recurso de contenido que simular cartas",
+  "description": "Recurso de sopa de letras",
   "main": "index.js",
   "module": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/haztivity/hz-cardflip"
+    "url": "https://github.com/haztivity/hz-soupletter"
   },
   "directories": {
     "typings": "src"
@@ -22,7 +22,7 @@
   "typings": "index.ts",
   "author": "Davinchi",
   "license": "MIT",
-  "homepage": "https://github.com/haztivity/hz-cardflip/",
+  "homepage": "https://github.com/haztivity/hz-soupletter/",
   "devDependencies": {
     "@haztivity/cli": "^0.2.5",
     "@haztivity/hz-navbar": "^0.6.2",
