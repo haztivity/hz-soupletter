@@ -105,7 +105,7 @@ export class HzSoupLetterResource extends ResourceController{
         let instance = e.data.instance;
         instance._NavigatorService.enable();
         instance._markAsCompleted();
-        if(instance._ScormService.LMSIsInitialized() && this._id != undefined){
+        if(instance._ScormService.LMSIsInitialized() && instance._id != undefined){
             instance._ScormService.doLMSSetValue(`cmi.objectives.${instance._objectiveIndex}.id`,instance._id);
             instance._ScormService.doLMSSetValue(`cmi.objectives.${instance._objectiveIndex}.status`,"passed");
             instance._ScormService.doLMSSetValue(`cmi.objectives.${instance._objectiveIndex}.score.raw`,100);
