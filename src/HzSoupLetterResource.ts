@@ -71,7 +71,7 @@ export class HzSoupLetterResource extends ResourceController{
         if(this._id != undefined) {
             let objectives = parseInt(this._ScormService.doLMSGetValue("cmi.objectives._count")),
                 currentObjective = objectives;
-            this._ScormService.doLMSSetValue(`cmi.objectives.${currentObjective}.id`, instance._id);
+            this._ScormService.doLMSSetValue(`cmi.objectives.${currentObjective}.id`, this._id);
             this._ScormService.doLMSSetValue(`cmi.objectives.${currentObjective}.status`, "not attempted");
             this._ScormService.doLMSCommit();
             return currentObjective;
