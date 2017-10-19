@@ -97,7 +97,7 @@ var HzSoupLetterResource = /** @class */ (function (_super) {
         this._$solveBtn.on("click", this._solve.bind(this));
         board.off(HzSoupLetterResource_1.NAMESPACE)
             .on("found" + "." + HzSoupLetterResource_1.NAMESPACE, { instance: this }, this._onWordFounded)
-            .on("end" + "." + HzSoupLetterResource_1.NAMESPACE, { instance: this }, this._onEnd);
+            .one("end" + "." + HzSoupLetterResource_1.NAMESPACE, { instance: this }, this._onEnd);
     };
     HzSoupLetterResource.prototype._solve = function () {
         wordfindgame.solve(this._gamePuzzle, this._options.words, this._$element.find("[data-hz-soup-letter-list] ul"), this._colorHash);

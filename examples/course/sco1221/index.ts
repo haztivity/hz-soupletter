@@ -2,7 +2,7 @@
  * @license
  * Copyright Davinchi. All Rights Reserved.
  */
-import {ScoFactory, Sco, ISco} from "@haztivity/core/index";
+import {ScoFactory, Sco, ISco} from "@haztivity/core";
 import template from "./sco.pug";
 import {HzNavbarComponent} from "@haztivity/hz-navbar";
 import "./main.scss";
