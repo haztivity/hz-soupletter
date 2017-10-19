@@ -50,6 +50,7 @@ var HzSoupLetterResource = /** @class */ (function (_super) {
         // start a word find game
         this._$text = this._$element.find("[data-hz-soup-letter-left]");
         this._$solveBtn = this._$element.find("[data-hz-soup-letter-solve]");
+        this._id = options.scormId;
         this._onWordFounded({
             data: {
                 instance: this
@@ -59,26 +60,29 @@ var HzSoupLetterResource = /** @class */ (function (_super) {
         // create just a puzzle, without filling in the blanks and print to console
         var puzzle = wordfind_1.wordfind.newPuzzle(this._options.words, { height: 18, width: 18, fillBlanks: false });
         wordfind_1.wordfind.print(this._gamePuzzle);
-        this._ScormService.doLMSInitialize();
         this._assignEvents();
+        this._initScorm();
     };
     HzSoupLetterResource.prototype._initScorm = function () {
-        this._ScormService.doLMSInitialize();
-        if (this._ScormService.LMSIsInitialized()) {
-            var objectiveIndex = this._findObjectiveIndex(this._id);
-            if (objectiveIndex == -1) {
-                objectiveIndex = this._registerObjective();
+        if (this._id != undefined) {
+            this._ScormService.doLMSInitialize();
+            if (this._ScormService.LMSIsInitialized()) {
+                var objectiveIndex = this._findObjectiveIndex(this._id);
+                if (objectiveIndex == -1) {
+                    objectiveIndex = this._registerObjective();
+                }
+                this._objectiveIndex = objectiveIndex;
             }
-            this._objectiveIndex = objectiveIndex;
         }
     };
     HzSoupLetterResource.prototype._registerObjective = function () {
-        var objectives = parseInt(this._ScormService.doLMSGetValue("cmi.objectives._count")), currentObjective = objectives;
-        this._ScormService.doLMSSetValue("cmi.objectives." + currentObjective + ".id", this._id);
-        this._ScormService.doLMSSetValue("cmi.objectives." + currentObjective + ".status", "not attempted");
-        this._ScormService.doLMSSetValue("cmi.objectives." + currentObjective + ".score.max", this._instance.getMaxPoints());
-        this._ScormService.doLMSCommit();
-        return currentObjective;
+        if (this._id != undefined) {
+            var objectives = parseInt(this._ScormService.doLMSGetValue("cmi.objectives._count")), currentObjective = objectives;
+            this._ScormService.doLMSSetValue("cmi.objectives." + currentObjective + ".id", this._id);
+            this._ScormService.doLMSSetValue("cmi.objectives." + currentObjective + ".status", "not attempted");
+            this._ScormService.doLMSCommit();
+            return currentObjective;
+        }
     };
     HzSoupLetterResource.prototype._findObjectiveIndex = function (id) {
         var objectives = parseInt(this._ScormService.doLMSGetValue("cmi.objectives._count")), index = -1;
@@ -104,13 +108,14 @@ var HzSoupLetterResource = /** @class */ (function (_super) {
     };
     HzSoupLetterResource.prototype._onEnd = function (e) {
         var instance = e.data.instance;
-        if (instance._ScormService.LMSIsInitialized()) {
-            instance._ScormService.doLMSSetValue("cmi.score.raw", 100);
-            instance._ScormService.doLMSSetValue("cmi.lesson_status ", "passed");
-            instance._ScormService.doLMSCommit();
-        }
         instance._NavigatorService.enable();
         instance._markAsCompleted();
+        if (instance._ScormService.LMSIsInitialized() && this._id != undefined) {
+            instance._ScormService.doLMSSetValue("cmi.objectives." + instance._objectiveIndex + ".id", instance._id);
+            instance._ScormService.doLMSSetValue("cmi.objectives." + instance._objectiveIndex + ".status", "passed");
+            instance._ScormService.doLMSSetValue("cmi.objectives." + instance._objectiveIndex + ".score.raw", 100);
+            instance._ScormService.doLMSCommit();
+        }
     };
     HzSoupLetterResource.prototype._onWordFounded = function (e) {
         var instance = e.data.instance;

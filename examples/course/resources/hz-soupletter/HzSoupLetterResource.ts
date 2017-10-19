@@ -39,6 +39,7 @@ export class HzSoupLetterResource extends ResourceController{
         // start a word find game
         this._$text = this._$element.find("[data-hz-soup-letter-left]");
         this._$solveBtn = this._$element.find("[data-hz-soup-letter-solve]");
+        this._id = options.scormId;
         this._onWordFounded({
             data:{
                 instance:this
@@ -51,27 +52,30 @@ export class HzSoupLetterResource extends ResourceController{
             {height: 18, width:18, fillBlanks: false}
         );
         wordfind.print(this._gamePuzzle);
-        this._ScormService.doLMSInitialize();
         this._assignEvents();
+        this._initScorm();
     }
     protected _initScorm(){
-        this._ScormService.doLMSInitialize();
-        if(this._ScormService.LMSIsInitialized()){
-            let objectiveIndex = this._findObjectiveIndex(this._id);
-            if(objectiveIndex == -1){
-                objectiveIndex = this._registerObjective();
+        if(this._id != undefined) {
+            this._ScormService.doLMSInitialize();
+            if (this._ScormService.LMSIsInitialized()) {
+                let objectiveIndex = this._findObjectiveIndex(this._id);
+                if (objectiveIndex == -1) {
+                    objectiveIndex = this._registerObjective();
+                }
+                this._objectiveIndex = objectiveIndex;
             }
-            this._objectiveIndex = objectiveIndex;
         }
     }
     protected _registerObjective(){
-        let objectives = parseInt(this._ScormService.doLMSGetValue("cmi.objectives._count")),
-            currentObjective = objectives;
-        this._ScormService.doLMSSetValue(`cmi.objectives.${currentObjective}.id`,this._id);
-        this._ScormService.doLMSSetValue(`cmi.objectives.${currentObjective}.status`,"not attempted");
-        this._ScormService.doLMSSetValue(`cmi.objectives.${currentObjective}.score.max`,this._instance.getMaxPoints());
-        this._ScormService.doLMSCommit();
-        return currentObjective;
+        if(this._id != undefined) {
+            let objectives = parseInt(this._ScormService.doLMSGetValue("cmi.objectives._count")),
+                currentObjective = objectives;
+            this._ScormService.doLMSSetValue(`cmi.objectives.${currentObjective}.id`, instance._id);
+            this._ScormService.doLMSSetValue(`cmi.objectives.${currentObjective}.status`, "not attempted");
+            this._ScormService.doLMSCommit();
+            return currentObjective;
+        }
     }
     protected _findObjectiveIndex(id){
         let objectives = parseInt(this._ScormService.doLMSGetValue("cmi.objectives._count")),
@@ -99,13 +103,14 @@ export class HzSoupLetterResource extends ResourceController{
     }
     protected _onEnd(e){
         let instance = e.data.instance;
-        if(instance._ScormService.LMSIsInitialized()){
-            instance._ScormService.doLMSSetValue(`cmi.score.raw`,100);
-            instance._ScormService.doLMSSetValue(`cmi.lesson_status `,"passed");
-            instance._ScormService.doLMSCommit();
-        }
         instance._NavigatorService.enable();
         instance._markAsCompleted();
+        if(instance._ScormService.LMSIsInitialized() && this._id != undefined){
+            instance._ScormService.doLMSSetValue(`cmi.objectives.${instance._objectiveIndex}.id`,instance._id);
+            instance._ScormService.doLMSSetValue(`cmi.objectives.${instance._objectiveIndex}.status`,"passed");
+            instance._ScormService.doLMSSetValue(`cmi.objectives.${instance._objectiveIndex}.score.raw`,100);
+            instance._ScormService.doLMSCommit();
+        }
     }
     protected _onWordFounded(e){
         let instance = e.data.instance;
