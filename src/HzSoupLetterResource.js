@@ -78,7 +78,7 @@ var HzSoupLetterResource = /** @class */ (function (_super) {
     HzSoupLetterResource.prototype._registerObjective = function () {
         if (this._id != undefined) {
             var objectives = parseInt(this._ScormService.doLMSGetValue("cmi.objectives._count")), currentObjective = objectives;
-            this._ScormService.doLMSSetValue("cmi.objectives." + currentObjective + ".id", this._id);
+            this._ScormService.doLMSSetValue("cmi.objectives." + currentObjective + ".id", instance._id);
             this._ScormService.doLMSSetValue("cmi.objectives." + currentObjective + ".status", "not attempted");
             this._ScormService.doLMSCommit();
             return currentObjective;
