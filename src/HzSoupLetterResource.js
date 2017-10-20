@@ -65,7 +65,6 @@ var HzSoupLetterResource = /** @class */ (function (_super) {
     };
     HzSoupLetterResource.prototype._initScorm = function () {
         if (this._id != undefined) {
-            this._ScormService.doLMSInitialize();
             if (this._ScormService.LMSIsInitialized()) {
                 var objectiveIndex = this._findObjectiveIndex(this._id);
                 if (objectiveIndex == -1) {

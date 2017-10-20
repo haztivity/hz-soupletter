@@ -57,7 +57,6 @@ export class HzSoupLetterResource extends ResourceController{
     }
     protected _initScorm(){
         if(this._id != undefined) {
-            this._ScormService.doLMSInitialize();
             if (this._ScormService.LMSIsInitialized()) {
                 let objectiveIndex = this._findObjectiveIndex(this._id);
                 if (objectiveIndex == -1) {
