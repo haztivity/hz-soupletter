@@ -1,6 +1,6 @@
 {
   "name": "@haztivity/hz-soupletter",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Recurso de sopa de letras",
   "main": "index.js",
   "module": "index.js",
