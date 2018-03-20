@@ -24,17 +24,18 @@
   "license": "MIT",
   "homepage": "https://github.com/haztivity/hz-soupletter/",
   "devDependencies": {
-    "@haztivity/cli": "^0.2.5",
-    "@haztivity/hz-navbar": "^0.6.2",
-    "@types/core-js": "^0.9.35",
-    "@types/jquery": "^2.0.34",
-    "@types/jqueryui": "^1.11.32",
+    "@haztivity/cli": "^0.5.1",
+    "@haztivity/hz-navbar": "^0.7.0",
+    "@types/core-js": "^0.9.46",
+    "@types/jquery": "^3.3.1",
+    "@types/jqueryui": "^1.12.2",
     "jstransformer-markdown-it": "^2.0.0",
-    "prismjs": "^1.6.0",
-    "typescript": "^2.1.5"
+    "node-sass": "^4.7.2",
+    "prismjs": "^1.12.2",
+    "typescript": "^2.7.2"
   },
   "dependencies": {
-    "@haztivity/core": "^0.6.3",
+    "@haztivity/core": "^0.7.0",
     "color-hash": "^1.0.3"
   }
 }
